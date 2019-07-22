@@ -97,7 +97,7 @@ begin
 	DECLARE vUsuario varchar(15);
 	DECLARE vEstado varchar(15);
 	
-	select usuario, clave, estado into vUsuario, vClave, vEstado from usuaros where usuario=pUsuario; 
+	select usuario, clave, estado into vUsuario, vClave, vEstado from usuaros where usuario = BINARY pUsuario; 
 	
 	if (vUsuario = pUsuario) then
 		if (vEstado = 'A') then
