@@ -90,7 +90,7 @@ usuario varchar(15) PRIMARY KEY
 insert into usuarios values ('admin','Administrador','A','IwSsVm01','admin', now(),'admin',now());
 
 DELIMITER //
-create procedure Autenticar_Usuario (in pUsuario varchar(15), in pClave varchar(15), OUT pResultado int, OUT pError varchar(100)) 
+create or replace procedure Autenticar_Usuario (in pUsuario varchar(15), in pClave varchar(15), OUT pResultado int, OUT pError varchar(100)) 
 begin 
 
 	DECLARE vClave varchar(15);
@@ -119,7 +119,7 @@ begin
 	
 end //
 
-create procedure Desactivar_Usuario (in pUsuario varchar(15), OUT pResultado int, OUT pError varchar(100)) 
+create or replace procedure Desactivar_Usuario (in pUsuario varchar(15), OUT pResultado int, OUT pError varchar(100)) 
 begin 
 
 	DECLARE vUsuario varchar(15);
@@ -137,7 +137,7 @@ begin
 	
 end //
 
-create procedure Nuevo_Usuario (IN pUser varchar(15), IN pUsuario varchar(15), IN pNombre varchar(30), IN pClave varchar(15), OUT pResultado int, OUT pError varchar(100)) 
+create or replace procedure Nuevo_Usuario (IN pUser varchar(15), IN pUsuario varchar(15), IN pNombre varchar(30), IN pClave varchar(15), OUT pResultado int, OUT pError varchar(100)) 
 begin 
 
 	DECLARE vUsuario varchar(15);
@@ -173,7 +173,7 @@ begin
 	
 end //
 
-create procedure Listar_Usuarios (OUT pResultado int, OUT pError varchar(100)) 
+create or replace procedure Listar_Usuarios (OUT pResultado int, OUT pError varchar(100)) 
 begin 
 
 	select 
@@ -196,7 +196,7 @@ begin
 	
 end //
 
-create procedure Nueva_Hermana (IN pUser varchar(15),
+create or replace procedure Nueva_Hermana (IN pUser varchar(15),
 	IN pCedula int,
 	IN pNombre	varchar(30),
 	IN pPrimer_Apellido	varchar(30),
@@ -389,7 +389,7 @@ BEGIN
 	
 end //
 
-create procedure Modificar_Hermana (IN pUser varchar(15),
+create or replace procedure Modificar_Hermana (IN pUser varchar(15),
 	IN pCedula int,
 	IN pNombre	varchar(30),
 	IN pPrimer_Apellido	varchar(30),
@@ -518,7 +518,7 @@ BEGIN
 	set pError = 'Hermana modificada en los registros satisfactoriamente';	  
 end //
 	
-create procedure Nuevo_Documento (IN pUser varchar(15), IN pCedula int, IN pDescripcion_documento varchar(50), IN pDocumento BLOB, OUT pResultado int, OUT pError varchar(100))
+create or replace procedure Nuevo_Documento (IN pUser varchar(15), IN pCedula int, IN pDescripcion_documento varchar(50), IN pDocumento BLOB, OUT pResultado int, OUT pError varchar(100))
 BEGIN
 	insert into documentos (
 		Cedula,
@@ -543,7 +543,7 @@ BEGIN
 	
 end //
 
-create procedure Borrar_Documento (IN pUser varchar(15), IN pDocumento_ID int, OUT pResultado int, OUT pError varchar(100))
+create or replace procedure Borrar_Documento (IN pUser varchar(15), IN pDocumento_ID int, OUT pResultado int, OUT pError varchar(100))
 begin
 	delete from documentos where Documento_ID = pDocumento_ID;
 	
@@ -552,7 +552,7 @@ begin
 	
 end //
 	
-create procedure Modificar_Desc_Documento (IN pUser, IN pDocumento_ID int, IN pDescripcion_documento varchar(50), OUT pResultado int, OUT pError varchar(100))
+create or replace procedure Modificar_Desc_Documento (IN pUser, IN pDocumento_ID int, IN pDescripcion_documento varchar(50), OUT pResultado int, OUT pError varchar(100))
 begin
 	update Documentos set Descripcion_documento = pDescripcion_documento where Documento_ID = pDocumento_ID;
 	
@@ -561,7 +561,7 @@ begin
 	
 end //
 
-create procedure Obtener_Documento (IN pDocumento_ID int, OUT pDocumento BLOB, OUT pResultado int, OUT pError varchar(100))
+create or replace procedure Obtener_Documento (IN pDocumento_ID int, OUT pDocumento BLOB, OUT pResultado int, OUT pError varchar(100))
 begin
 	select Documento into pDocumento from Documentos where Documento_ID = pDocumento_ID;
 	
@@ -570,7 +570,7 @@ begin
 	
 end //
 
-create procedure Listar_Documentos (OUT pResultado int, OUT pError varchar(100))
+create or replace procedure Listar_Documentos (OUT pResultado int, OUT pError varchar(100))
 begin
 	select 
 		Documento_ID,
